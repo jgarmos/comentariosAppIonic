@@ -333,6 +333,7 @@ export class ComentariosPage implements OnInit {
         }
       );
   }
+  //asd
   getFechaHora(momento:number):string{
     let momentoCalculado:string;
     
