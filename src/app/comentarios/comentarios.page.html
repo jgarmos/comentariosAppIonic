@@ -50,6 +50,14 @@
       <ion-item>
         <ion-label>{{comentario2.texto}}</ion-label>
         <ion-note>{{comentario2.autor}}</ion-note>
+        <ion-note>
+          <ion-datetime
+            displayFormat="D MMM YYYY H:mm"
+            [value]="getFechaHora(comentario2.momento)"
+          >
+            {{comentario2.momento}}
+          </ion-datetime>
+        </ion-note>
       </ion-item>
       <ion-item-options side="end" *ngIf="login.nombre === comentario2.autor">
         <ion-item-option (click)="borrar(comentario2, elementoDeslizante)">
@@ -58,6 +66,13 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-item>
+    <ion-label>
+      Actualizar automaticamente
+    </ion-label>
+    <ion-checkbox slot="start" color="light"> </ion-checkbox> 
+  </ion-item>
 
   <!-- <ion-list>
     <ion-list-header>
