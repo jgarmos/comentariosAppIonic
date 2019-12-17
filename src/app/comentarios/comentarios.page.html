@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Comentarios de {{peli.titulo}}
+      <ion-chip (click)="chipTocada()">
+        <ion-avatar>
+          <img src="https://avatarfiles.alphacoders.com/693/69306.jpg" />
+        </ion-avatar>
+        <ion-label>{{login.nombre}}</ion-label>
+      </ion-chip>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngIf="enEdicion">
+    <ion-button class="ion-activable" (click)="publicarNuevoComentario()">
+      publicar
+      <ion-icon slot="start" name="clipboard"></ion-icon>
+    </ion-button>
+    <ion-button (click)="cerrarAdd()">
+      cancelar
+      <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-button>
+  </ion-item>
+  <ion-item *ngIf="enEdicion">
+    <ion-label>Tu opinion</ion-label>
+    <ion-textarea
+      [(ngModel)]="nuevaOpinion"
+      placeholder="tu opinion..."
+    ></ion-textarea>
+  </ion-item>
+
+  <ion-fab *ngIf="!enEdicion" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addComentario()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list *ngIf="lista_comentarios?.length>0">
+    <ion-badge>
+      {{lista_comentarios.length}}
+    </ion-badge>
+
+    <ion-item-sliding
+      *ngFor="let comentario2 of lista_comentarios"
+      #elementoDeslizante
+    >
+      <ion-item>
+        <ion-label>{{comentario2.texto}}</ion-label>
+        <ion-note>{{comentario2.autor}}</ion-note>
+      </ion-item>
+      <ion-item-options side="end" *ngIf="login.nombre === comentario2.autor">
+        <ion-item-option (click)="borrar(comentario2, elementoDeslizante)">
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- <ion-list>
+    <ion-list-header>
+      Ultimos Comentarios
+    </ion-list-header>
+    <ion-item *ngFor="let comentario of lista_comentarios">
+      <ion-avatar slot="start">
+        <img src="https://pbs.twimg.com/profile_images/1117465711893524481/H0wUxky0_400x400.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{comentario.autor}}</h2>
+        <p>{{comentario.texto}}</p>
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list> -->
+</ion-content>
