@@ -34,6 +34,10 @@ export class ComentariosPage implements OnInit {
   enEdicion: boolean;
   nuevaOpinion: string;
 
+  autoload: boolean;
+  idAlarma: number;
+
+
   constructor(
     public platform: Platform,
     public servicio_remoto: RemoteApiService,
@@ -333,12 +337,33 @@ export class ComentariosPage implements OnInit {
         }
       );
   }
-  //asd
+
+  //asd 
   getFechaHora(momento:number):string{
     let momentoCalculado:string;
     
       momentoCalculado =   new Date(momento).toISOString();
 
     return momentoCalculado;
+  }
+
+
+  saludo(){
+    console.log("hola");
+  }
+
+  actualizarAuto(){
+    
+    if (this.autoload){
+      // this.idAlarma = window.setInterval(this.refrescaComentarios, 3000);
+      this.idAlarma = window.setInterval( 
+        () => {this.refrescaComentarios();},
+        3000); 
+    }
+    else{
+      window.clearInterval(this.idAlarma);
+    }
+    
+    console.log("actualizarAuto");
   }
 }

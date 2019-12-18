@@ -71,7 +71,7 @@
     <ion-label>
       Actualizar automaticamente
     </ion-label>
-    <ion-checkbox slot="start" color="light"> </ion-checkbox> 
+    <ion-checkbox (ionChange)="actualizarAuto()" [(ngModel)]=" autoload" slot="start" color="light" > </ion-checkbox> 
   </ion-item>
 
   <!-- <ion-list>
