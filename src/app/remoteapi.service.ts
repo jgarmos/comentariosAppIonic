@@ -16,6 +16,8 @@ export class RemoteApiService {
   public static readonly DIR_SERVIDOR = "10.1.2.10:8081";
   public static readonly BOARDGAMES_API = "https://www.boardgameatlas.com/api/search?client_id=M0E5uD01dv"
 
+
+
   public static readonly DIR_SERVCIO_LOGIN = "http://"+RemoteApiService.DIR_SERVIDOR+"/cfticionic/usuariocftic";
   public static readonly DIR_SERVCIO_GET_PELIS = "http://"+RemoteApiService.DIR_SERVIDOR+"/cfticionic/fotos?key=";
   public static readonly DIR_SERVCIO_GET_COMENTARIOS = "http://"+RemoteApiService.DIR_SERVIDOR+"/cfticionic/comentarios/foto";
@@ -101,8 +103,19 @@ export class RemoteApiService {
       cabecera = new HttpHeaders().set('Content-type','application/json'); 
       resp_servidor = this.httpcliente.put(RemoteApiService.DIR_SERVCIO_PUT_COMENTARIO,comentario,{observe:"response",headers:cabecera});
 
-
     }
 
+
+    public getBoargames ():Observable<Object>
+    {
+      let resp_servidor : Observable<Object>;
+      let dir_serv : string;
+
+        dir_serv = RemoteApiService.DIR_SERVICIO_BOARDGAMES;
+
+        resp_servidor = this.httpcliente.get (dir_serv, {observe:"response"});
+      
+      return resp_servidor;
+    }
     
 }

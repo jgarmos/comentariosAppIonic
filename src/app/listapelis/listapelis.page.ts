@@ -1,3 +1,4 @@
+import { Game } from './game';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RemoteApiService } from '../remoteapi.service';
 import { NavController, LoadingController, AlertController, IonSegment, IonSlide, Platform } from '@ionic/angular';
@@ -15,11 +16,15 @@ import { OpcionesCarrusel } from './opciones-carrusel';
 })
 export class ListapelisPage implements OnInit {
 
+
+
   lista_pelis: Array<Peli>;
   login:Login;
   elementoEspera: HTMLIonLoadingElement;
   esperando: boolean;
   opciones_carrusel:OpcionesCarrusel;
+
+  lista_games: Array<Game>;
 
   
   constructor(public platform:Platform, public servicio_remoto:RemoteApiService, public nc:NavController, public lc:LoadingController, public ac:AlertController) { 
@@ -121,6 +126,22 @@ public async mostrarEspera():Promise<void> {
   }
 
 }
+
+// mostrarBoardgames(){
+
+
+//   this.servicio_remoto.getBoargames().subscribe(
+//     resp_ok => {
+//       let respuesta_http : HttpResponse<Array<Game>> = resp_ok as  HttpResponse<Array<Game>>;
+//       this.lista_games = respuesta_http.body;
+//       // this.lista_pelis.map(peli => console.log (peli.ruta + " " +peli.idfoto + " " +peli.titulo));
+//       this.ocultarEspera();
+//     }, resp_ko => {
+//       console.log ("Error al recuperar la lista de películas");
+//       this.informarErrorPelis(<HttpErrorResponse>resp_ko);
+//       this.ocultarEspera();
+//     }
+// }
 
 
 }
