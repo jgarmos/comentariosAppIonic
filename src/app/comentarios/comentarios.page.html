@@ -13,6 +13,15 @@
 </ion-header>
 
 <ion-content>
+
+<ion-refresher slot="fixed" (ionRefresh)="refrescaComentarios($event)">
+  
+  <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="baje para actualizar" refreshingSpinner="circles" refreshingText="actualizando...">
+    
+  </ion-refresher-content>
+</ion-refresher>
+
+
   <ion-item *ngIf="enEdicion">
     <ion-button class="ion-activable" (click)="publicarNuevoComentario()">
       publicar
@@ -72,7 +81,7 @@
       Actualizar automaticamente
     </ion-label>
     <ion-checkbox (ionChange)="actualizarAuto()" [(ngModel)]=" autoload" slot="start" color="light" > </ion-checkbox> 
-  </ion-item>
+  </ion-item>z
 
   <!-- <ion-list>
     <ion-list-header>

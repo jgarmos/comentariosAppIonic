@@ -37,7 +37,6 @@ export class ComentariosPage implements OnInit {
   autoload: boolean;
   idAlarma: number;
 
-
   constructor(
     public platform: Platform,
     public servicio_remoto: RemoteApiService,
@@ -165,7 +164,7 @@ export class ComentariosPage implements OnInit {
             this.informarErrorInsertarComentario();
             break;
           case 201:
-            this.refrescaComentarios(); //tb podemos informarl y despues de que cierre actualizar//this.informarComentarioBorrado();
+            this.refrescaComentarios(null); //tb podemos informarl y despues de que cierre actualizar//this.informarComentarioBorrado();
             break;
         }
         this.nuevaOpinion = "";
@@ -217,16 +216,14 @@ export class ComentariosPage implements OnInit {
     await alert.present();
   }
 
-  refrescaComentarios() {
+  refrescaComentarios(event) {
     console.log("Empieza el refresco de comentarios");
 
     this.servicio_remoto
       .getComentariosPeli(this.login.token, this.peli.idfoto)
       .subscribe(
         resp_ok => {
-          let respuesta_http: HttpResponse<Array<
-            Comentario
-          >> = resp_ok as HttpResponse<Array<Comentario>>;
+          let respuesta_http: HttpResponse<Array<Comentario>> = resp_ok as HttpResponse<Array<Comentario>>;
           if (respuesta_http.status == 200) {
             this.lista_comentarios = respuesta_http.body;
             this.lista_comentarios.map(comentario =>
@@ -238,6 +235,9 @@ export class ComentariosPage implements OnInit {
             console.log("Pelicula sin comentarios");
             this.lista_comentarios = null;
             this.informarPeliSinComentarios();
+          }
+          if (event != null){
+            event.target.complete();
           }
         },
         resp_ko => {
@@ -328,7 +328,7 @@ export class ComentariosPage implements OnInit {
               this.informarErrorBorrarComentarios();
               break;
             case 200:
-              this.refrescaComentarios(); //this.informarComentarioBorrado();
+              this.refrescaComentarios(null); //this.informarComentarioBorrado();
               break;
           }
         },
@@ -338,32 +338,29 @@ export class ComentariosPage implements OnInit {
       );
   }
 
-  //asd 
-  getFechaHora(momento:number):string{
-    let momentoCalculado:string;
-    
-      momentoCalculado =   new Date(momento).toISOString();
+  //asd
+  getFechaHora(momento: number): string {
+    let momentoCalculado: string;
+
+    momentoCalculado = new Date(momento).toISOString();
 
     return momentoCalculado;
   }
 
-
-  saludo(){
+  saludo() {
     console.log("hola");
   }
 
-  actualizarAuto(){
-    
-    if (this.autoload){
+  actualizarAuto() {
+    if (this.autoload) {
       // this.idAlarma = window.setInterval(this.refrescaComentarios, 3000);
-      this.idAlarma = window.setInterval( 
-        () => {this.refrescaComentarios();},
-        3000); 
-    }
-    else{
+      this.idAlarma = window.setInterval(() => {
+        this.refrescaComentarios(null);
+      }, 3000);
+    } else {
       window.clearInterval(this.idAlarma);
     }
-    
+
     console.log("actualizarAuto");
   }
 }
